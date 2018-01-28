@@ -35,3 +35,63 @@ def merge_sort(a, p, r):
         merge(a, p, q, r)
     else:
         return a
+
+def find_max_crossing_subarray(A, low, mid, high):
+    left_sum = float("-inf")
+    total_sum = 0
+    for i in range(low, mid+1):
+        total_sum += A[i]
+        if total_sum > left_sum:
+            left_sum = total_sum
+            max_left = i
+
+    right_sum = float("-inf")
+    total_sum = 0
+    for i in range(mid+1, high+1):
+        total_sum += A[i]
+        if total_sum > right_sum:
+            right_sum = total_sum
+            max_right = i
+
+    return (max_left, max_right, left_sum + right_sum)
+
+def find_maximum_subarray(A, low, high):
+    if high == low:
+        return (low, high,  A[low])
+    else:
+        mid = int((low + high)/2)
+        left_low, left_high, left_sum = find_maximum_subarray(A, low, mid)
+        right_low, right_high, right_sum = find_maximum_subarray(A, mid, high)
+        cross_low, cross_high, cross_sum = find_max_crossing_subarray(A, low, mid, high)
+
+        if left_sum >= right_sum and left_sum >= cross_sum:
+            return (left_low, left_high, left_sum)
+        elif right_sum >= left_sum and right_sum >= cross_sum:
+            return (right_low, right_high, right_sum)
+        else:
+            return (cross_low, cross_high, cross_sum)
+
+def quicksort(arr, start, end):
+    if start < end:
+        pivot = partition(arr, start, end)
+        quicksort(arr, start, pivot - 1)
+        quicksort(arr, pivot + 1, end)
+
+def partition(arr, start, end):
+    x = arr[end]
+    i = start - 1
+    for j in range(start, end):
+        if arr[j] <= x:
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]
+    arr[i+1], arr[end] = arr[end], arr[i+1]
+    return i + 1
+
+def quicksort_simple(arr):
+    if len(arr) < 2:
+        return arr
+    else:
+        pivot = arr[0]
+        less = [i for i in arr[1:] if i <= pivot]
+        greater = [i for i in arr[1:] if i > pivot]
+        return quicksort_simple(less) + [pivot] + quicksort_simple(greater)
