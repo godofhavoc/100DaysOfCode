@@ -87,6 +87,11 @@ def partition(arr, start, end):
     arr[i+1], arr[end] = arr[end], arr[i+1]
     return i + 1
 
+def randomized_partition (arr, start, end):
+    i = random.randint(start, end)
+    arr[r], arr[i] = arr[i], arr[r]
+    return partition(arr, start, end)
+
 def quicksort_simple(arr):
     if len(arr) < 2:
         return arr
