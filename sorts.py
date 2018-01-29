@@ -100,3 +100,27 @@ def quicksort_simple(arr):
         less = [i for i in arr[1:] if i <= pivot]
         greater = [i for i in arr[1:] if i > pivot]
         return quicksort_simple(less) + [pivot] + quicksort_simple(greater)
+
+def counting_sort(arr):
+    k = max(arr)
+    c = []
+    b = []
+    for i in range(0, k+1):
+        c.append(0)
+
+    for val in arr:
+        c[val] += 1
+        b.append(None)
+
+
+    for idx, _ in enumerate(c):
+        if idx:
+            c[idx] = c[idx] + c[idx - 1]
+
+    print(c)
+
+    for val in reversed(arr):
+        b[c[val] - 1] = val
+        c[val] -= 1
+
+    return b
