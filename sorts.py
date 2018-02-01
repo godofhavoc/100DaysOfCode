@@ -118,9 +118,22 @@ def counting_sort(arr):
             c[idx] = c[idx] + c[idx - 1]
 
     print(c)
-
+= val
     for val in reversed(arr):
         b[c[val] - 1] = val
         c[val] -= 1
 
     return b
+
+def bucket_sort(arr):
+    n = len(arr)
+    b = []
+    for i in range(n - 1):
+        b[i] = []
+
+    for val in arr:
+        b[int(n * val)].append(val)
+    for val in b:
+        val = insertion_sort(val)
+
+    return [inner for outer in b for inner in outer]
