@@ -147,3 +147,24 @@ def randomized_select(arr, start, end, i):
         return randomized_select(arr, start, pivot - 1, i)
     else:
         return randomized_select(arr, pivot + 1, end,  i - k)
+
+class Node:
+    def __init__(self, data=None, next=None):
+        self._data = data
+        self.next = next
+
+    def __str__(self):
+        return str(self._data)
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.next:
+            return self.next
+        else:
+            raise StopIteration
+
+    @property
+    def data(self):
+        return self._data
