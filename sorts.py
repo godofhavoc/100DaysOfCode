@@ -117,8 +117,6 @@ def counting_sort(arr):
         if idx:
             c[idx] = c[idx] + c[idx - 1]
 
-    print(c)
-= val
     for val in reversed(arr):
         b[c[val] - 1] = val
         c[val] -= 1
@@ -137,3 +135,15 @@ def bucket_sort(arr):
         val = insertion_sort(val)
 
     return [inner for outer in b for inner in outer]
+
+def randomized_select(arr, start, end, i):
+    if start == end:
+        return arr[start]
+    pivot = randomized_partition(arr, start, end)
+    k = pivot - p + 1
+    if i == k:
+        return arr[pivot]
+    elif i < k:
+        return randomized_select(arr, start, pivot - 1, i)
+    else:
+        return randomized_select(arr, pivot + 1, end,  i - k)
