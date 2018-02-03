@@ -24,3 +24,18 @@ def left_rotate(T, x):
         x.parent.right = y
     y.left = x
     x.parent = y
+
+def right_rotate(T, x):
+    y = x.left
+    x.left = y.right
+    if not y.right == None:
+        y.right.parent = x
+    y.parent = x.parent
+    if x.parent = None:
+        T.root = y
+    elif x == x.parent.left:
+        x.parent.left = y
+    else:
+        x.parent.right = y
+    y.right = x
+    x.parent = y
