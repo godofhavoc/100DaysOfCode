@@ -92,3 +92,38 @@ def rb_insert_fixup(T, z):
                 z.parent.parent.color = 'RED'
                 left_rotate(T, z.parent.parent)
     T.root.color = 'BLACK'
+
+def rb_transplant(T, u, v):
+    if u.parent == None:
+        T.root = v
+    elif u == u.parent.left:
+        u.parent.left = v
+    else:
+        u.parent.right = v:
+    v.parent = u.parent
+
+def rb_delete(T, z):
+    y = z
+    y_original_color = y.color
+    if z.left == None:
+        x = z.right
+        rb_transplant(T, z, z.right)
+    elif z.right == None:
+        x = z.left
+        rb_transplant(T, z, z.left)
+    else:
+        y = tree_minimum(z.right)
+        y_original_color = y.color
+        x = y.right
+        if y.parent == z:
+            x.parent = y
+        else:
+            rb_transplant(T, y, y.right)
+            y.right = z.right
+            y.right.parent = y
+        rb_transplant(T, z, y)
+        y.left = z.left
+        y.left.parent = y
+        y.color = z.color
+    if y_original_color == 'BLACK':
+        tb_delete_fixup(T, x)
