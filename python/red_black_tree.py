@@ -127,3 +127,49 @@ def rb_delete(T, z):
         y.color = z.color
     if y_original_color == 'BLACK':
         tb_delete_fixup(T, x)
+
+def rb_delete_fixup(T, x):
+    while not x == T.root and x.color == 'BLACK':
+        if x == x.parent.left:
+            w = x.parent.right
+            if w.color == 'RED':
+                w.color = 'BLACK'
+                x.p.color = 'RED'
+                left_rotate(T, x.parent)
+                w = x.parent.right
+            if w.left.color == 'BLACK' and w.right.color = 'BLACK':
+                w.color = 'RED'
+                x = x.parent
+            else:
+                if w.right.color == 'BLACK':
+                    w.left.color = 'BLACK'
+                    w.color = 'RED'
+                    right_rotate(T, w)
+                    w = x.parent.right
+                w.color = x.parent.color
+                x.parent.color = 'BLACK'
+                w.right.color = 'BLACK'
+                left_rotate(T, x.parent)
+                x = T.root
+        else:
+            w = x.parent.right
+            if w.color == 'RED':
+                w.color = 'BLACK'
+                x.parent.color = 'RED'
+                right_rotate(T, x.parent)
+                w = x.parent.left
+            if w.right.color == 'BLACK' and w.left.color == 'BLACK':
+                w.color = 'RED'
+                x = x.parent
+            else:
+                if w.left.color = 'BLACK':
+                    w.right.color = 'BLACK'
+                    w.color = 'RED'
+                    left_rotate(T, w)
+                    w = x.parent.left
+                w.color = x.parent.color
+                x.parent.color = 'BLACK'
+                w.left.color = 'BLACK'
+                right_rotate(T, x.parent)
+                x = T.root
+    x.color = 'BLACK'
