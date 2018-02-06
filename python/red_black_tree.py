@@ -5,6 +5,7 @@ class TreeNode:
         self.left = left
         self.right = right
         self.color = color
+        self.size = self.right.size + self.left.size + 1
 
     @property
     def data(self):
@@ -173,3 +174,21 @@ def rb_delete_fixup(T, x):
                 right_rotate(T, x.parent)
                 x = T.root
     x.color = 'BLACK'
+
+def os_select(x, i):
+    r = x.left.size + 1
+    if i == r:
+        return x
+    elif i < r:
+        return os_select(x.left, i)
+    else:
+        return os_select(x.right, i)
+
+def os_rank(T, x):
+    r = x.left.size + 1
+    y = x
+    while not y == T.root:
+        if y == y.parent.right:
+            r += y.parent.left.size + 1
+        y = y.parent
+    return r
