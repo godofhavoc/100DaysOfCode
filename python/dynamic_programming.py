@@ -27,10 +27,29 @@ def memoized_cut_rod_aux(p, n, r):
     return q
 
 def bottom_up_cut_rod(p, n):
-    r = [0]
+    r = [None] * n
+    r[0] = 0
     for j in range(1, n+1):
         q = -math.inf
         for i in range(1, j):
             q = max(q, p[i] + r[j - i])
         r[j] = q
     return r[n]
+
+def extended_bottom_up_cut_rod(p, n):
+    r = [None] * (n + 1)
+    s = [None] * (n + 1)
+    r[0] = 0
+    for j in range(1, n+1):
+        q = -math.inf
+        for i in range(1, j + 1):
+            q = max(q, p[i] + r[j - i])
+            s[j] = i
+        r[j] = q
+    return r and s
+
+def print_cut_rod(p, n):
+    r, s = extended_bottom_up_cut_rod(p, n)
+    while n > 0:
+        print s[n]
+        n = n - s[n]
