@@ -65,3 +65,23 @@ def matrix_multiply(A, B):
                 for k in range(len(A[0])):
                     c[i][j] += a[i][k] * b[k][j]
         return c
+
+def matrix_chain_order(p):
+    n = len(p) - 1
+    m = [[None for _ in range(n)] for _ in range(n)]
+    s = [[None for _ in range(n)] for _ in range(n)]
+
+    for i in range(n):
+        m[i, i] = 0
+
+    for l in range(1, n):
+        for i in range(n - l + 1):
+            j = i + l - 1
+            m[i, j] = math.inf
+            for k in range(i, j):
+                q = m[i, k] + m[k+1, j] + p[i-1]p[k]p[j]
+                if q < m[i, j]:
+                    m[i, j] = q
+                    s[i, j] = k
+
+    return m, s
