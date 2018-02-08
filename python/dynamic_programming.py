@@ -55,7 +55,13 @@ def print_cut_rod(p, n):
         n = n - s[n]
 
 def matrix_multiply(A, B):
-    if not A.columns == B.rows:
+    if not len(A[0]) == len(B):
         print 'incompatible dimensions'
     else:
-        c = []
+        c = [[None for _ in range(len(B[0]))] for _ in range(len(A))]
+        for i in range(len(A)):
+            for j in range(len(B[0])):
+                c[i][j] = 0
+                for k in range(len(A[0])):
+                    c[i][j] += a[i][k] * b[k][j]
+        return c
