@@ -85,3 +85,12 @@ def matrix_chain_order(p):
                     s[i, j] = k
 
     return m, s
+
+def print_optimal_parens(s, i, j):
+    if i == j:
+        print 'A', i
+    else:
+        print '('
+        print_optimal_parens(s, i, s[i, j])
+        print_optimal_parens(s, s[i, j] + 1, j)
+        print ')'
