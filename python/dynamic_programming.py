@@ -94,3 +94,23 @@ def print_optimal_parens(s, i, j):
         print_optimal_parens(s, i, s[i, j])
         print_optimal_parens(s, s[i, j] + 1, j)
         print ')'
+
+def memoized_matrix_chain(p):
+    n = len(p) - 1
+    m = [[None for _ in range(n)] for _ in range(n)]
+    for i in range(1, n+1):
+        for j in range(i, n):
+            m[i, j] = math.inf
+    return lookup_chain(m, p, 1, n)
+
+def lookup_chain(m, p, i, j):
+    if m[i, j] < math.inf:
+        return m[i, j]
+    if i == j:
+        m[i, j] = 0
+    else:
+        for k in range(i, j):
+            q = lookup_chain(m, p, i, k) + lookup_chain(m, p, k+1, j) + p[i-1]*p[k]*p[j]
+        if q < m[i, j]:
+            m[i, j] = q
+    return m[i, j]
