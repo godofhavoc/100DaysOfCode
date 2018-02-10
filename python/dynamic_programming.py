@@ -114,3 +114,36 @@ def lookup_chain(m, p, i, j):
         if q < m[i, j]:
             m[i, j] = q
     return m[i, j]
+
+def lcs_length(x, y):
+    m = len(x)
+    n = len(y)
+    b = [[None for _ in range(1, n + 1)] for _ in range(1, m + 1)]
+    c = [[None for _ in range(n + 1)] for _ in range(m + 1)]
+    for i in range(1, m + 1):
+        c[i, 0] = 0
+    for i in range(n + 1):
+        c[0, j] = 0
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if x[:i] == y[:i]:
+                c[i, j] = c[i - 1, j - 1] + 1
+                b[i, j] = 'lu'
+            elif c[i - 1, j] >= c[i, j - 1]:
+                c[i, j] = c[i - 1, j]
+                b[i, j] = 'u'
+            else:
+                c[i, j] = c[i, j - 1]
+                b[i, j] = 'l'
+    return c, b
+
+def print_lcs(b, x, i, j):
+    if (i == 0) || (j == 0):
+        return
+    if b[i, j] == 'lu':
+        print_lcs(b, x, i - 1, j - 1)
+        print x[i]
+    elif b[i, j] == 'u':
+        print_lcs(b, x, i - 1, j)
+    else:
+        print_lcs(b, x, i, j - 1)
