@@ -177,10 +177,10 @@ def recursive_activity_selector(s, f, k, n):
 
 def greedy_activity_selector(s, f):
     n = s.length
-    A = [a[i]]
+    A = [a[0]]
     k = 1
     for m in range(2, n + 1):
         if s[m] >= f[k]:
             A += [a[m]]
             k = m
-    return A 
+    return A
