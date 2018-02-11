@@ -166,3 +166,21 @@ def optimal_bst(p, q, n):
                     e[i, j] = t
                     root[i, j] = r
     return e, root
+
+def recursive_activity_selector(s, f, k, n):
+    m = k + 1
+    while m <= n && s[m] < f[k]:
+        m = m + 1
+    if m <= n:
+        return a[m] + recursive_activity_selector(s, f, m, n)
+    return []
+
+def greedy_activity_selector(s, f):
+    n = s.length
+    A = [a[i]]
+    k = 1
+    for m in range(2, n + 1):
+        if s[m] >= f[k]:
+            A += [a[m]]
+            k = m
+    return A 
