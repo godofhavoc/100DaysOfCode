@@ -47,3 +47,25 @@ def greedy_matroid(M, w):
         if sublist((A + [x]), M.I):
             A = A + [x]
     return A
+
+def unit_task_scheduling(a, d, w):
+    n = len(a)
+    I = []
+    for i in n:
+        temp = I + [(a[i], d[i])]
+
+        add = True
+        for j in len(temp):
+            count = sum(x[1] < temp[j][1] for x in temp)
+            if j < count:
+                add = False
+                break
+
+        if add:
+            I += [(a[i], d[i])]
+
+    a_tup = zip(a, d)
+    diff = sorted(list(set(a_tup) - set(I)), key=lambda x: x[1])
+    final = [x[0] for x in sorted(I + diff, key=lambda y: y[1])]
+
+    return final
