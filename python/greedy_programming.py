@@ -27,3 +27,23 @@ def huffman(C):
         z = TreeNode(x.data + y.data, None, x, y)
         insert(Q, z)
     return extract_min(q)
+
+def sublist(s1, s2):
+    def get_all_in(one, another):
+        for element in one:
+            if element in another:
+                yield element
+
+    for x1, x2 in zip(get_all_in(s1, s2), get_all_in(s2, s1)):
+        if x1 != x2:
+            return False
+
+    return True
+
+def greedy_matroid(M, w):
+    A = []
+    M.S = sorted(M.S, key=lambda x: w(x), reverse=True)
+    for x in M.S:
+        if sublist((A + [x]), M.I):
+            A = A + [x]
+    return A
