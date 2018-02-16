@@ -27,6 +27,7 @@ class Node:
 
 class FibonacciHeap:
     _min = None
+    _root_list = Node()
 
     def __init__(self, minimum=None):
         self._min = minimum
@@ -38,3 +39,13 @@ class FibonacciHeap:
     @min.setter
     def min(self, value):
         self._min = value
+
+def fib_heap_insert(H, x):
+    x.degree = 0
+    x.p = None
+    x.child = None
+    x.mark = False
+    if H.min == None:
+        H.min = x
+    else:
+        if x.key
