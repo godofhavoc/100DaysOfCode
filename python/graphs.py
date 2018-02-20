@@ -24,3 +24,33 @@ def BFS(s):
                 v.pi = u
                 enqueue(Q, v)
         u.color = BLACK
+
+def print_path(G, s, v):
+    if v == s:
+        print(s)
+    elif v.pi == None:
+        print('no path from ' + s + ' to ' + v + ' exists')
+    else:
+        print_path(G, s, v.pi)
+        print(v)
+
+def dfs(G):
+    for u in G.V:
+        u.color = WHITE
+        u.pi = None
+    time = 0
+    for u in G.V:
+        if u.color == WHITE:
+            dfs_visit(G, u)
+
+def dfs_visit(G, u):
+    time += 1
+    u.d = time
+    u.color = GRAY
+    for v in G.Adj[u]:
+        if v.color == WHITE:
+            v.pi = u
+            dfs_visit(G, v)
+    u.color = BLACK
+    time += 1
+    u.f = time
