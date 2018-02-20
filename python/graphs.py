@@ -34,6 +34,8 @@ def print_path(G, s, v):
         print_path(G, s, v.pi)
         print(v)
 
+top = []
+
 def dfs(G):
     for u in G.V:
         u.color = WHITE
