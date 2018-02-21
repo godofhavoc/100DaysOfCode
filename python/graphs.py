@@ -34,8 +34,6 @@ def print_path(G, s, v):
         print_path(G, s, v.pi)
         print(v)
 
-top = []
-
 def dfs(G):
     for u in G.V:
         u.color = WHITE
@@ -56,3 +54,17 @@ def dfs_visit(G, u):
     u.color = BLACK
     time += 1
     u.f = time
+
+def topological_sort(G):
+    top = []
+
+    for u in G.V:
+        u.color = WHITE
+        u.pi = None
+    time = 0
+    for u in G.V:
+        if u.color == WHITE:
+            dfs_visit(G, u)
+            top.append(u)
+
+    return u
