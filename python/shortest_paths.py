@@ -20,3 +20,13 @@ def bellman_ford(G, w, s):
         if v.d > u.d + w(u, v):
             return False
     return True
+
+def dijkstra(G, w, s):
+    initialize_single_source(G, s)
+    S = []
+    Q = G.V
+    while Q:
+        u = extract_min(Q)
+        S += u
+        for v in G.Adj[u]:
+            relax(u, v, w)
