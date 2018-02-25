@@ -46,5 +46,24 @@ def slow_all_pairs_shortest_paths(W):
     n = W.rows
     L = W
     for m in range(1, n - 1):
-        lm = extend_shortest_paths(L, W)
+        L = extend_shortest_paths(L, W)
     return L
+
+def faster_all_pairs_shortest_paths(W):
+    n = W.rows
+    L = W
+    m = 1
+    while m < n - 1:
+        L = extend_shortest_paths(L, L)
+        m = 2m
+    return L
+
+def floyd_warshal(W):
+    n = W.rows
+    D = [W]
+    for k in range(1, n+1):
+        D.push(d[i][j](k))
+        for i in range(1, n + 1):
+            for j in range(1, n + 1):
+                d[i][k](k) = min(d[i][k](k - 1), d[i][k](k - 1) + d[k][j](k - 1))
+    return D
