@@ -4,5 +4,5 @@ def ford_fulkerson_method(G, s, t):
         augment(f, p)
     return f
 
-def customary_again():
+def customary():
     pass
