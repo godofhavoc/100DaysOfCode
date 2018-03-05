@@ -3,3 +3,6 @@ def ford_fulkerson_method(G, s, t):
     while p in G:
         augment(f, p)
     return f
+
+def whyagain():
+    pass
